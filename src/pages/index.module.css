@@ -6,6 +6,7 @@
   height: 100vh;
   min-height: 100vh;
   padding: 0 0.5rem;
+  background-color: black;
 }
 
 .icon {
@@ -14,10 +15,52 @@
   background: url('~/src/assets/images/icons.png') no-repeat;
 }
 
-.board {
-  /* position: absolute; */
+.Bigboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px;
+  margin: 0 auto;
+  background-color: lightgray;
+  border: 10px solid gray;
+  border-color: white gray gray white; /* 上から時計 */
+}
+
+.squeaBoard {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px;
+  background-color: lightgray;
+  border: 6px solid gray;
+  border-color: gray white white gray;
+}
+
+.numberBoard {
+  width: 80px;
+  height: 100%;
+  background-color: rgb(52, 46, 46);
+  color: red;
+  font-size: 30px;
+  text-align: center;
+} 
+
+.faceBoard {
+  width: 40px;
+  height: 40px;
+  background: url('~/src/assets/images/icons.png') no-repeat;
+  background-position: -330px;
+  background-color: lightgray;
+  border: 5px solid;
+  border-color: white gray gray white;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
   width: 450px;
   height: 450px;
   background-color: lightgray;
@@ -39,20 +82,23 @@
   justify-content: center;
   width: 50px;
   height: 50px;
-
-  /* padding: 0;
-  margin: 0 /* top: 0; */
-
-  /* background-color: black; */
 }
 
-.frontboard {
+.frontBoard {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
   width: 450px;
   height: 450px;
   border: solid;
+}
 
-  /* background-color: lightgray; */
+.stone {
+  box-sizing: border-box;
+  display: flex;
+  width: 50px;
+  height: 50px;
+  background-color: darkgray;
+  border: 5px solid;
+  border-color: white gray gray white; /* 上から時計 */
 }
