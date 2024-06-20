@@ -12,45 +12,44 @@ const directions = [
   [-1, 1],
 ];
 
-const countBomb = (x, y) => {};
+const getNearByBomb = (x: number, y: number, bombMap: number[][]) => {
+  let result = 0;
+  for (const direction of directions) {
+    const [dx, dy] = direction;
+    const nx = x + dx;
+    const ny = y + dy;
+    if (ny >= 0 && ny < bombMap.length && nx >= 0 && nx < bombMap[0].length) {
+      if (bombMap[ny][nx] === 1) {
+        result++;
+      }
+    }
+  }
+  return result;
+};
 
 const normalBoard = (normal = 0, row = 9, column = 9): number[][] =>
   Array.from({ length: row }, () => Array.from({ length: column }, () => normal));
 
 const searchBomb = (bombMap: number[][], userInputs: number[][]) => {
   const board = normalBoard(-1);
-  for (let x = 0; x < 9; x++) {
-    for (let y = 0; y < 9; y++) {
-      // const numberBomb = [0];
-      if (userInputs !== undefined && userInputs[y][x] === 1) {
-        board[y][x] = 0;
-        console.log(y, x);
+  for (let y = 0; y < bombMap.length; y++) {
+    for (let x = 0; x < bombMap[0].length; x++) {
+      if (userInputs[y][x] === 1) {
+        board[y][x] = getNearByBomb(x, y, bombMap);
       }
-      for (const direction of directions) {
-        if (bombMap !== undefined && bombMap[y][x] === 1) {
-          board[y][x] = 11;
-          break;
-        }
-        // if (
-        //   bombMap[y + direction[1]] !== undefined &&
-        //   bombMap[y + direction[1]][x + direction[0]] === 1
-        // ) {
-        //   numberBomb[0] += 1;
-        //   board[y][x] = numberBomb[0];
-        // }
+      if (bombMap[y][x] === 1) {
+        board[y][x] = 11;
       }
     }
   }
-
   return board;
 };
 
 const Home = () => {
   const [bombMap, setbombMap] = useState(normalBoard());
-
   const [userInputs, setUserInputs] = useState(normalBoard());
 
-  const pushCount = bombMap.flat().filter((cell) => cell === 0).length; //ゲーム開始したか
+  const pushCount = bombMap.flat().filter((cell) => cell === 0).length;
 
   const clickHandler = (x: number, y: number) => {
     const newBombMap = structuredClone(bombMap);
@@ -66,12 +65,13 @@ const Home = () => {
           putBomb += 1;
         }
       }
-      setbombMap(newBombMap);
     }
-    newUserInputs[y][x] = 1;
 
+    newUserInputs[y][x] = 1;
+    setbombMap(newBombMap);
     setUserInputs(newUserInputs);
   };
+
   const numBomb = searchBomb(bombMap, userInputs);
 
   return (
@@ -79,7 +79,7 @@ const Home = () => {
       <div className={styles.Bigboard}>
         <div className={styles.squeaBoard}>
           <div className={styles.numberBoard}>111</div>
-          <div className={styles.faceBoard}></div>
+          <div className={styles.faceBoard} />
           <div className={styles.numberBoard}>123</div>
         </div>
 
@@ -87,8 +87,8 @@ const Home = () => {
           {numBomb.map((row, y) =>
             row.map((color, x) => (
               <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHandler(x, y)}>
-                {numBomb[y][x] === -1 ? (
-                  <div className={styles.stone} />
+                {userInputs[y][x] === 0 ? (
+                  <div className={styles.stone}>{bombMap[y][x]}</div>
                 ) : (
                   <div
                     className={styles.icon}

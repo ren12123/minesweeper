@@ -23,7 +23,7 @@
   margin: 0 auto;
   background-color: lightgray;
   border: 10px solid gray;
-  border-color: white gray gray white; /* 上から時計 */
+  border-color: white gray gray white;
 }
 
 .squeaBoard {
@@ -41,18 +41,18 @@
 .numberBoard {
   width: 80px;
   height: 100%;
-  background-color: rgb(52, 46, 46);
-  color: red;
   font-size: 30px;
+  color: red;
   text-align: center;
-} 
+  background-color: rgb(52 46 46);
+}
 
 .faceBoard {
   width: 40px;
   height: 40px;
   background: url('~/src/assets/images/icons.png') no-repeat;
-  background-position: -330px;
   background-color: lightgray;
+  background-position: -330px;
   border: 5px solid;
   border-color: white gray gray white;
 }
@@ -60,9 +60,9 @@
 .board {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
   width: 450px;
   height: 450px;
+  margin-top: 10px;
   background-color: lightgray;
 }
 
